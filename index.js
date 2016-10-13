@@ -27,9 +27,16 @@ module.exports = {
     }
 
     if (assetFileName) {
+      let fingerprint = this.app.options.fingerprint;
+      let prepend = '/';
+
+      if (fingerprint && fingerprint.prepend) {
+        prepend = fingerprint.prepend;
+      }
+
       fs.writeFileSync(
         indexFilePath,
-        indexFile.replace(/__asset_map_placeholder__/, '/assets/' + assetFileName)
+        indexFile.replace(/__asset_map_placeholder__/, prepend + 'assets/' + assetFileName)
       );
     }
   },
